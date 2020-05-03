@@ -118,21 +118,87 @@ class LinkedList:
     def reverse_recursive(self):
         self.reverse_recursive_(self.head)
             
-            
+    def reverse_from_middle(self):
+        slow = self.head
+        fast = self.head
+        prev = None
+        while fast and fast.next:
+            prev = slow
+            slow = slow.next
+            fast = fast.next.next
+
+        p = None
+        n = None
+        curr = slow
+        while curr:
+            n = curr.next
+            curr.next = p
+            p = curr
+            curr = n
+        prev.next = p
         
+        
+    def rearrange(self):
+        curr = self.head
+        stack = []
+        while curr:
+            stack.append(curr)
+            curr = curr.next
+            
+        curr = self.head
+        while True:
+            popped = stack.pop()
+            if curr.data == popped.data:
+                curr.next = None
+                break
+            
+            if curr.next.data == popped.data:
+                curr.next.next = None
+                break
+            
+            temp = curr.next
+            curr.next = popped
+            curr.next.next = temp
+            curr = temp
+    
+    def rearrangeRecursive_(self, root, head):
+        if not root:
+            return
+        self.rearrangeRecursive_(root.next, head)
+        
+        if not head[0]:
+            return
+        
+        if head[0].data != root.data and head[0].next.data != root.data:
+            temp = head[0].next
+            head[0].next = root
+            root.next = temp
+            head[0] = temp
+        else:
+            if head[0] == root:
+                head[0].next = None
+            else:
+                head[0].next.next = None
+            head[0] = None
+        
+        
+    
+        
+        
+            
 llist = LinkedList()
 llist.insert(1)
 llist.append(2)
 llist.append(3)
 llist.append(4)
 llist.append(5)
+llist.append(6)
+#llist.append(7)
+
 
 llist.printList()
-llist.reverse()
-
+llist.rearrangeRecursive_(llist.head, [llist.head])
 llist.printList()
-
-
 
 
 
