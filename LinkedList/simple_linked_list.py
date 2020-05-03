@@ -75,20 +75,38 @@ class LinkedList:
             curr = curr.next
         return l
     
+    def deleteMiddle(self):
+        if self.length() > 1:
+            slow = self.head
+            fast = self.head 
+            prev = None
+            while fast and fast.next:
+                prev = slow
+                slow = slow.next
+                fast = fast.next.next
+            prev.next = slow.next
+    
+    def getMiddle(self):
+        if self.length() > 1:
+            slow = self.head
+            fast = self.head
+            while fast and fast.next:
+                slow = slow.next
+                fast = fast.next.next
+            return slow.data        
+        
 llist = LinkedList()
 llist.insert(1)
 llist.append(2)
 llist.append(3)
 llist.append(4)
-llist.insert(0)
+llist.append(5)
+
 llist.printList()
-print(llist.removeTop())
-
-for i in range(llist.length()):
-    print(llist.pop())
-
-print(llist.pop())
-print(llist.removeTop())
+print(llist.getMiddle())
+llist.deleteMiddle()
+llist.printList()
+print(llist.getMiddle())
 
 
 
