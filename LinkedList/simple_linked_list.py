@@ -93,7 +93,32 @@ class LinkedList:
             while fast and fast.next:
                 slow = slow.next
                 fast = fast.next.next
-            return slow.data        
+            return slow.data 
+    
+    def reverse(self):
+        prev = None
+        next = None
+        curr = self.head
+        while curr:
+            next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
+        self.head = prev
+        
+    def reverse_recursive_(self, root):
+        if not root.next:
+            self.head = root
+            return
+
+        self.reverse_recursive_(root.next)
+        root.next.next = root
+        root.next = None
+        
+    def reverse_recursive(self):
+        self.reverse_recursive_(self.head)
+            
+            
         
 llist = LinkedList()
 llist.insert(1)
@@ -103,10 +128,10 @@ llist.append(4)
 llist.append(5)
 
 llist.printList()
-print(llist.getMiddle())
-llist.deleteMiddle()
+llist.reverse()
+
 llist.printList()
-print(llist.getMiddle())
+
 
 
 
